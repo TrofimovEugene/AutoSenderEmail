@@ -17,16 +17,29 @@ namespace AutoSenderEmail.Pages.Clients
 		{
 			_context = context;
 		}
+		[BindProperty]
 		public IList<Client> Client { get; set; }
+		public EmailModel EmailModel { get; set; }
 
-		public async Task OnGetAsync()
+		public async Task<IActionResult> OnGetAsync(int? id)
+		{
+			Client = await _context.Client.ToListAsync(); 
+
+			return Page();
+		}
+		public async Task<IActionResult> OnPostAsync(int? id)
 		{
 			Client = await _context.Client.ToListAsync();
-		}
 
-		public ActionResult SendMessages()
-		{
-			return Page();
+			if (Client != null)
+			{
+				foreach(var item in Client)
+				{
+					EmailService emailService = new EmailService();
+					await emailService.SendEmailAsync(item.Email, item.Theme, "hello!");
+				}
+			}
+			return RedirectToPage("./Index");
 		}
 	}
 }
