@@ -17,6 +17,7 @@ namespace AutoSenderEmail.Pages.Clients
 		{
 			_context = context;
 		}
+		[BindProperty]
 		public IList<Client> Client { get; set; }
 		public IList<TemplatesEmail> templatesEmail { get; set; }
 		[BindProperty]
