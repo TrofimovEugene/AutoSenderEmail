@@ -4,11 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AutoSenderEmail.Models;
 
-namespace AutoSenderEmail.Pages.Clients
+namespace AutoSenderEmail.Pages.Templates
 {
     public class CreateModel : PageModel
     {
@@ -25,18 +24,16 @@ namespace AutoSenderEmail.Pages.Clients
         }
 
         [BindProperty]
-        public Client Client { get; set; }
-		public IList<TemplatesEmail> templatesEmail { get; set; }
+        public TemplatesEmail TemplatesEmail { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
-			templatesEmail = await _context.TemplateEmail.ToListAsync();
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Client.Add(Client);
+            _context.TemplateEmail.Add(TemplatesEmail);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

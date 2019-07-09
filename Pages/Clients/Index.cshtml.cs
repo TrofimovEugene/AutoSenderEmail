@@ -18,15 +18,53 @@ namespace AutoSenderEmail.Pages.Clients
 			_context = context;
 		}
 		public IList<Client> Client { get; set; }
+		public IList<TemplatesEmail> templatesEmail { get; set; }
+		[BindProperty]
+		public IList<EmailModel> EmailModel { get; set; }
 
-		public async Task OnGetAsync()
+		public async Task<IActionResult> OnGetAsync(int? id)
 		{
 			Client = await _context.Client.ToListAsync();
-		}
+			templatesEmail = await _context.TemplateEmail.ToListAsync();
 
-		public ActionResult SendMessages()
-		{
 			return Page();
+		}
+		public async Task<IActionResult> OnPostAsync()
+		{
+			Client = await _context.Client.ToListAsync();
+			templatesEmail = await _context.TemplateEmail.ToListAsync();
+
+			if (!ModelState.IsValid)
+			{
+				return Page();
+			}
+			int i = 0;
+			if (Client != null)
+			{
+				foreach (var item in Client)
+				{
+					EmailService emailService = new EmailService();
+					foreach (var temp in templatesEmail)
+					{
+						if (item.ID_template == temp.ID)
+						{
+							EmailModel.Add(new Models.EmailModel());
+							EmailModel[i].Subject = temp.Subject;
+							EmailModel[i].From = "praktika.rassilka2019@gmail.com";
+							EmailModel[i].To = item.Email;
+							EmailModel[i].Body = temp.Body;
+							EmailModel[i].SendDate = DateTime.Now;
+							_context.EmailModel.Add(EmailModel[i]);
+							await _context.SaveChangesAsync();
+							await emailService.SendEmailAsync(item.Email, item.Theme, temp.Body);
+							i++;
+						}
+						
+					}
+					
+				}
+			}
+			return RedirectToPage("./Index");
 		}
 	}
 }

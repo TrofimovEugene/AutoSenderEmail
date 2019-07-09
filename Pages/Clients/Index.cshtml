@@ -24,19 +24,36 @@
     </thead>
     <tbody>
 @foreach (var item in Model.Client) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Theme)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Email)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Theme)
+			</td>
+			@foreach (var temp in Model.templatesEmail)
+			{
+				@if (item.ID_template == temp.ID)
+				{
+					<td>
+						<a asp-page="./EditTemp" asp-route-id="@temp.ID">Template</a> |
+						<a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+						<a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+						<a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+					</td>
+				}
+			}
+		</tr>
 }
     </tbody>
 </table>
+<div class="row">
+	<div class="col-10">
+		<form method="post">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<input type="submit" value="Send messages" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>

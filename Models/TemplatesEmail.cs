@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace AutoSenderEmail.Models
 {
-	public class Client
+	public class TemplatesEmail
 	{
 		public int ID { get; set; }
-		public string Email { get; set; }
-		public string Theme { get; set; }
-		public int ID_template { get; set; }
+		public string Subject { get; set; }
+		public string Body { get; set; }
 	}
 }
