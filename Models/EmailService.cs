@@ -1,7 +1,6 @@
 ﻿using MimeKit;
 using MailKit.Net.Smtp;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient.Memcached;
 
 namespace AutoSenderEmail.Models
 {

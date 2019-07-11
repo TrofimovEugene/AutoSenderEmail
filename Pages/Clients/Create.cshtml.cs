@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using AutoSenderEmail.Models;
 
 namespace AutoSenderEmail.Pages.Clients
 {
-    public class CreateModel : PageModel
+	public class CreateModel : PageModel
     {
         private readonly AutoSenderEmail.Models.AutoSenderEmailContext _context;
 

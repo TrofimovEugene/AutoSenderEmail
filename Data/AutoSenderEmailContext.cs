@@ -19,5 +19,8 @@ namespace AutoSenderEmail.Models
         public DbSet<AutoSenderEmail.Models.EmailModel> EmailModel { get; set; }
 
         public DbSet<AutoSenderEmail.Models.TemplatesEmail> TemplateEmail { get; set; }
+
+        public DbSet<AutoSenderEmail.Models.User> User { get; set; }
+
     }
 }

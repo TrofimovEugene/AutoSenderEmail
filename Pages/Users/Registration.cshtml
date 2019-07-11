@@ -1,0 +1,44 @@
+﻿@page
+@model AutoSenderEmail.Pages.Users.RegistrationModel
+
+@{
+    ViewData["Title"] = "Registration";
+}
+
+<h1>Registration</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="User1.Login" class="control-label"></label>
+                <input asp-for="User1.Login" class="form-control" />
+                <span asp-validation-for="User1.Login" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User1.Email" class="control-label"></label>
+                <input asp-for="User1.Email" class="form-control" />
+                <span asp-validation-for="User1.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User1.Passowrd" class="control-label"></label>
+                <input asp-for="User1.Passowrd" type="password" class="form-control" />
+                <span asp-validation-for="User1.Passowrd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="/Pages/Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
